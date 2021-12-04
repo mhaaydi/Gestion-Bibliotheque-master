@@ -1,0 +1,50 @@
+﻿@model GestionBibliotheque.Models.emprunt
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>emprunt</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.etudiant.nom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.etudiant.nom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ouvrage.titre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ouvrage.titre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dateemprunt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dateemprunt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dateretour)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dateretour)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

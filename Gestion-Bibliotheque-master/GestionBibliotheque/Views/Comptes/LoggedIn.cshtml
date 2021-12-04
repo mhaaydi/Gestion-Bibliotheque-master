@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewBag.Title = "LoggedIn";
+}
+
+<h2>Connecté</h2>
+
+@if(Session["login"] != null)
+{
+    <h4>Bienvenu @Session["login"].ToString()</h4>
+    <a href="@Url.Action("Deconnect","Home")">Log out</a>
+}
+

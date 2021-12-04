@@ -1,0 +1,345 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="Model1StoreContainer">
+    <EntitySet Name="Compte" EntityType="Model1.Store.Compte" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="auteur" EntityType="Model1.Store.auteur" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="emprunt" EntityType="Model1.Store.emprunt" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="etudiant" EntityType="Model1.Store.etudiant" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ouvrage" EntityType="Model1.Store.ouvrage" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="fk3" Association="Model1.Store.fk3">
+      <End Role="Compte" EntitySet="Compte" />
+      <End Role="etudiant" EntitySet="etudiant" />
+    </AssociationSet>
+    <AssociationSet Name="fk" Association="Model1.Store.fk">
+      <End Role="ouvrage" EntitySet="ouvrage" />
+      <End Role="auteur" EntitySet="auteur" />
+    </AssociationSet>
+    <AssociationSet Name="fk1" Association="Model1.Store.fk1">
+      <End Role="ouvrage" EntitySet="ouvrage" />
+      <End Role="emprunt" EntitySet="emprunt" />
+    </AssociationSet>
+    <AssociationSet Name="fk2" Association="Model1.Store.fk2">
+      <End Role="etudiant" EntitySet="etudiant" />
+      <End Role="emprunt" EntitySet="emprunt" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Compte">
+    <Key>
+      <PropertyRef Name="login" />
+    </Key>
+    <Property Name="login" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="pwd" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="role" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="auteur">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nom" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="prenom" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="idouvrage" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="emprunt">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idouvrage" Type="int" Nullable="false" />
+    <Property Name="idetudiant" Type="int" Nullable="false" />
+    <Property Name="dateemprunt" Type="datetime" Nullable="false" />
+    <Property Name="dateretour" Type="datetime" Nullable="true" />
+  </EntityType>
+  <EntityType Name="etudiant">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nom" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="prenom" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="niveau" Type="int" Nullable="false" />
+    <Property Name="login" Type="varchar" Nullable="true" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ouvrage">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="titre" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="edition" Type="datetime" Nullable="false" />
+    <Property Name="nbExemplaires" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="fk3">
+    <End Role="Compte" Type="Model1.Store.Compte" Multiplicity="0..1" />
+    <End Role="etudiant" Type="Model1.Store.etudiant" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Compte">
+        <PropertyRef Name="login" />
+      </Principal>
+      <Dependent Role="etudiant">
+        <PropertyRef Name="login" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk">
+    <End Role="ouvrage" Type="Model1.Store.ouvrage" Multiplicity="1" />
+    <End Role="auteur" Type="Model1.Store.auteur" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ouvrage">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="auteur">
+        <PropertyRef Name="idouvrage" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk1">
+    <End Role="ouvrage" Type="Model1.Store.ouvrage" Multiplicity="1" />
+    <End Role="emprunt" Type="Model1.Store.emprunt" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ouvrage">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="emprunt">
+        <PropertyRef Name="idouvrage" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk2">
+    <End Role="etudiant" Type="Model1.Store.etudiant" Multiplicity="1" />
+    <End Role="emprunt" Type="Model1.Store.emprunt" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="etudiant">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="emprunt">
+        <PropertyRef Name="idetudiant" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Compte" EntityType="Model1.Compte" />
+          <EntitySet Name="auteur" EntityType="Model1.auteur" />
+          <EntitySet Name="emprunt" EntityType="Model1.emprunt" />
+          <EntitySet Name="etudiant" EntityType="Model1.etudiant" />
+          <EntitySet Name="ouvrage" EntityType="Model1.ouvrage" />
+          <AssociationSet Name="fk3" Association="Model1.fk3">
+            <End Role="Compte" EntitySet="Compte" />
+            <End Role="etudiant" EntitySet="etudiant" />
+          </AssociationSet>
+          <AssociationSet Name="fk" Association="Model1.fk">
+            <End Role="ouvrage" EntitySet="ouvrage" />
+            <End Role="auteur" EntitySet="auteur" />
+          </AssociationSet>
+          <AssociationSet Name="fk1" Association="Model1.fk1">
+            <End Role="ouvrage" EntitySet="ouvrage" />
+            <End Role="emprunt" EntitySet="emprunt" />
+          </AssociationSet>
+          <AssociationSet Name="fk2" Association="Model1.fk2">
+            <End Role="etudiant" EntitySet="etudiant" />
+            <End Role="emprunt" EntitySet="emprunt" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Compte">
+          <Key>
+            <PropertyRef Name="login" />
+          </Key>
+          <Property Name="login" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="pwd" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="role" Type="Model1.Type" Nullable="false" />
+          <NavigationProperty Name="etudiant" Relationship="Model1.fk3" FromRole="Compte" ToRole="etudiant" />
+        </EntityType>
+        <EntityType Name="auteur">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="prenom" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="idouvrage" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ouvrage" Relationship="Model1.fk" FromRole="auteur" ToRole="ouvrage" />
+        </EntityType>
+        <EntityType Name="emprunt">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idouvrage" Type="Int32" Nullable="false" />
+          <Property Name="idetudiant" Type="Int32" Nullable="false" />
+          <Property Name="dateemprunt" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="dateretour" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="ouvrage" Relationship="Model1.fk1" FromRole="emprunt" ToRole="ouvrage" />
+          <NavigationProperty Name="etudiant" Relationship="Model1.fk2" FromRole="emprunt" ToRole="etudiant" />
+        </EntityType>
+        <EntityType Name="etudiant">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="prenom" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="niveau" Type="Model1.Niveau" Nullable="false" />
+          <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Compte" Relationship="Model1.fk3" FromRole="etudiant" ToRole="Compte" />
+          <NavigationProperty Name="emprunt" Relationship="Model1.fk2" FromRole="etudiant" ToRole="emprunt" />
+        </EntityType>
+        <EntityType Name="ouvrage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="titre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="edition" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="nbExemplaires" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="auteur" Relationship="Model1.fk" FromRole="ouvrage" ToRole="auteur" />
+          <NavigationProperty Name="emprunt" Relationship="Model1.fk1" FromRole="ouvrage" ToRole="emprunt" />
+        </EntityType>
+        <Association Name="fk3">
+          <End Type="Model1.Compte" Role="Compte" Multiplicity="0..1" />
+          <End Type="Model1.etudiant" Role="etudiant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Compte">
+              <PropertyRef Name="login" />
+            </Principal>
+            <Dependent Role="etudiant">
+              <PropertyRef Name="login" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk">
+          <End Type="Model1.ouvrage" Role="ouvrage" Multiplicity="1" />
+          <End Type="Model1.auteur" Role="auteur" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ouvrage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="auteur">
+              <PropertyRef Name="idouvrage" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk1">
+          <End Type="Model1.ouvrage" Role="ouvrage" Multiplicity="1" />
+          <End Type="Model1.emprunt" Role="emprunt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ouvrage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="emprunt">
+              <PropertyRef Name="idouvrage" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk2">
+          <End Type="Model1.etudiant" Role="etudiant" Multiplicity="1" />
+          <End Type="Model1.emprunt" Role="emprunt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="etudiant">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="emprunt">
+              <PropertyRef Name="idetudiant" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EnumType Name="Type">
+          <Member Name="ADMIN" Value="1" />
+          <Member Name="ETUDIANT" Value="2" />
+        </EnumType>
+        <EnumType Name="Niveau">
+          <Member Name="L1" Value="1" />
+          <Member Name="L2" Value="2" />
+          <Member Name="L3" Value="3" />
+          <Member Name="M1" Value="4" />
+          <Member Name="M2" Value="5" />
+          <Member Name="Doctora" Value="6" />
+        </EnumType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="Model1Container">
+    <EntitySetMapping Name="Compte">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Compte)">
+        <MappingFragment StoreEntitySet="Compte">
+          <ScalarProperty Name="login" ColumnName="login" />
+          <ScalarProperty Name="pwd" ColumnName="pwd" />
+          <ScalarProperty Name="role" ColumnName="role" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="auteur">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.auteur)">
+        <MappingFragment StoreEntitySet="auteur">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="prenom" ColumnName="prenom" />
+          <ScalarProperty Name="idouvrage" ColumnName="idouvrage" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="emprunt">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.emprunt)">
+        <MappingFragment StoreEntitySet="emprunt">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="idouvrage" ColumnName="idouvrage" />
+          <ScalarProperty Name="idetudiant" ColumnName="idetudiant" />
+          <ScalarProperty Name="dateemprunt" ColumnName="dateemprunt" />
+          <ScalarProperty Name="dateretour" ColumnName="dateretour" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="etudiant">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.etudiant)">
+        <MappingFragment StoreEntitySet="etudiant">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="prenom" ColumnName="prenom" />
+          <ScalarProperty Name="niveau" ColumnName="niveau" />
+          <ScalarProperty Name="login" ColumnName="login" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ouvrage">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.ouvrage)">
+        <MappingFragment StoreEntitySet="ouvrage">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="titre" ColumnName="titre" />
+          <ScalarProperty Name="edition" ColumnName="edition" />
+          <ScalarProperty Name="nbExemplaires" ColumnName="nbExemplaires" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
